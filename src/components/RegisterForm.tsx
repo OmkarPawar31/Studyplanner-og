@@ -57,15 +57,15 @@ export function RegisterForm() {
   const navigate = useNavigate();
   const { signUp, signInWithGoogle } = useAuth();
 
-  const [name, setName]                 = useState('');
-  const [email, setEmail]               = useState('');
-  const [password, setPassword]         = useState('');
-  const [school, setSchool]             = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [school, setSchool] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const [status, setStatus]             = useState<Status>('idle');
-  const [fieldErrors, setFieldErrors]   = useState<FieldErrors>({});
-  const [formError, setFormError]       = useState<string | null>(null);
+  const [status, setStatus] = useState<Status>('idle');
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const [formError, setFormError] = useState<string | null>(null);
 
   const strength = useMemo(() => scorePassword(password), [password]);
 
@@ -91,11 +91,14 @@ export function RegisterForm() {
       await signUp(email.trim(), password, name.trim());
       setStatus('success');
       // PlannerContext will detect a new user and seed their Firestore data
-      setTimeout(() => navigate('/dashboard'), 600);
+      setTimeout(() => navigate('/onboarding-quiz'), 600);
     } catch (err: unknown) {
       setStatus('error');
       const code = (err as { code?: string }).code ?? '';
-      setFormError(parseFirebaseError(code));
+      const message = err instanceof Error && err.message.includes('Firebase is not configured')
+        ? 'Firebase is not configured yet. Add your project environment values to enable sign-up.'
+        : parseFirebaseError(code);
+      setFormError(message);
     }
   }
 
@@ -105,11 +108,14 @@ export function RegisterForm() {
     try {
       await signInWithGoogle();
       setStatus('success');
-      setTimeout(() => navigate('/dashboard'), 500);
+      setTimeout(() => navigate('/onboarding-quiz'), 500);
     } catch (err: unknown) {
       setStatus('error');
       const code = (err as { code?: string }).code ?? '';
-      setFormError(parseFirebaseError(code));
+      const message = err instanceof Error && err.message.includes('Firebase is not configured')
+        ? 'Firebase is not configured yet. Add your project environment values to enable sign-up.'
+        : parseFirebaseError(code);
+      setFormError(message);
     }
   }
 
@@ -210,11 +216,10 @@ export function RegisterForm() {
             {[0, 1, 2].map((i) => (
               <span
                 key={i}
-                className={`h-1 flex-1 rounded-full transition-colors duration-200 ease-out ${
-                  password && strength > i
-                    ? strength === 1 ? 'bg-clay' : strength === 2 ? 'bg-sand' : 'bg-moss'
-                    : 'bg-ink-line'
-                }`}
+                className={`h-1 flex-1 rounded-full transition-colors duration-200 ease-out ${password && strength > i
+                  ? strength === 1 ? 'bg-clay' : strength === 2 ? 'bg-sand' : 'bg-moss'
+                  : 'bg-ink-line'
+                  }`}
               />
             ))}
           </span>
@@ -230,7 +235,7 @@ export function RegisterForm() {
       {/* School (optional) */}
       <div className="flex flex-col gap-1.5">
         <label htmlFor="school" className="text-sm font-medium text-ink-soft">
-          School <span className="font-normal text-ink-muted">(optional)</span>
+          School <span className="font-normal text-ink-muted"></span>
         </label>
         <input
           id="school"

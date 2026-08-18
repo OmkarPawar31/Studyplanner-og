@@ -25,21 +25,21 @@ export function Profile() {
   const { profile, attempts, blocks, subjects, dataLoading } = usePlanner();
   const navigate = useNavigate();
 
-  const [editing, setEditing]           = useState<EditField>(null);
-  const [nameValue, setNameValue]       = useState(profile?.name ?? user?.displayName ?? '');
-  const [schoolValue, setSchoolValue]   = useState(profile?.school ?? '');
-  const [saving, setSaving]             = useState(false);
-  const [saveError, setSaveError]       = useState<string | null>(null);
+  const [editing, setEditing] = useState<EditField>(null);
+  const [nameValue, setNameValue] = useState(profile?.name ?? user?.displayName ?? '');
+  const [schoolValue, setSchoolValue] = useState(profile?.school ?? '');
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   // ── Stats ────────────────────────────────────────────────────────────────
-  const totalSessions  = blocks.filter((b) => b.kind !== 'break').length;
-  const doneSessions   = blocks.filter((b) => b.kind !== 'break' && b.done).length;
-  const totalQuizzes   = attempts.length;
-  const avgScore       = totalQuizzes === 0
+  const totalSessions = blocks.filter((b) => b.kind !== 'break').length;
+  const doneSessions = blocks.filter((b) => b.kind !== 'break' && b.done).length;
+  const totalQuizzes = attempts.length;
+  const avgScore = totalQuizzes === 0
     ? null
     : Math.round(attempts.reduce((sum, a) => sum + (a.correct / a.total) * 100, 0) / totalQuizzes);
-  const streakDays     = profile?.streakDays ?? 0;
-  const subjectCount   = subjects.length;
+  const streakDays = profile?.streakDays ?? 0;
+  const subjectCount = subjects.length;
 
   // ── Helpers ───────────────────────────────────────────────────────────────
   function startEdit(field: EditField) {

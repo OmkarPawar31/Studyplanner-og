@@ -3,12 +3,13 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { PlannerProvider } from './contexts/PlannerContext';
 import { DashboardShell } from './components/dashboard/DashboardShell';
+import { Landing } from './pages/Landing';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { Timetable } from './pages/dashboard/Timetable';
 import { Quiz } from './pages/dashboard/Quiz';
-import { Analysis } from './pages/dashboard/Analysis';
 import { Profile } from './pages/dashboard/Profile';
+import { OnboardingQuiz } from './pages/OnboardingQuiz';
 
 // ─── Route Guards ──────────────────────────────────────────────────────────
 
@@ -47,6 +48,14 @@ export function App() {
               path="/"
               element={
                 <PublicRoute>
+                  <Landing />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <PublicRoute>
                   <Login />
                 </PublicRoute>
               }
@@ -62,6 +71,14 @@ export function App() {
 
             {/* Protected routes */}
             <Route
+              path="/onboarding-quiz"
+              element={
+                <ProtectedRoute>
+                  <OnboardingQuiz />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/dashboard"
               element={
                 <ProtectedRoute>
@@ -71,7 +88,6 @@ export function App() {
             >
               <Route index element={<Timetable />} />
               <Route path="quiz" element={<Quiz />} />
-              <Route path="analysis" element={<Analysis />} />
               <Route path="profile" element={<Profile />} />
             </Route>
 

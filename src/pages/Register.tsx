@@ -11,17 +11,17 @@ export function Register() {
             <span
               aria-hidden="true"
               className="flex h-8 w-8 items-center justify-center rounded-lg bg-ink font-display text-[17px] leading-none text-paper">
-              
+
               M
             </span>
             <span className="text-[15px] font-medium tracking-tight text-ink">
-              Marigold
+              Study Planner
             </span>
           </Link>
           <Link
             to="/"
             className="text-sm text-ink-muted underline-offset-2 transition-colors duration-150 ease-out hover:text-ink hover:underline">
-            
+
             Sign in
           </Link>
         </header>
@@ -31,7 +31,7 @@ export function Register() {
             Start your term.
           </h1>
           <p className="mt-3 text-[15px] leading-relaxed text-ink-muted">
-            Create an account, drop in your syllabi, and Marigold builds the
+            Create an account, drop in your syllabi, and Study Planner builds the
             first week for you in about two minutes.
           </p>
 
@@ -43,19 +43,19 @@ export function Register() {
           <a
             href="#privacy"
             className="underline-offset-2 transition-colors duration-150 ease-out hover:text-ink hover:underline">
-            
+
             Privacy
           </a>
           <a
             href="#terms"
             className="underline-offset-2 transition-colors duration-150 ease-out hover:text-ink hover:underline">
-            
+
             Terms
           </a>
           <a
             href="#help"
             className="underline-offset-2 transition-colors duration-150 ease-out hover:text-ink hover:underline">
-            
+
             Get help
           </a>
         </footer>
@@ -64,8 +64,8 @@ export function Register() {
       <PlannerPreview
         eyebrow="What your first week looks like"
         headline="Paste a syllabus and every due date lands in the plan."
-        caption="Marigold learns when you actually get work done, then reshuffles the week whenever something slips. Nothing to configure on day one." />
-      
+        caption="Study Planner learns when you actually get work done, then reshuffles the week whenever something slips. Nothing to configure on day one." />
+
     </div>);
 
 }

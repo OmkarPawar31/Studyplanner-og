@@ -47,13 +47,13 @@ export function LoginForm() {
   const navigate = useNavigate();
   const { signIn, signInWithGoogle } = useAuth();
 
-  const [email, setEmail]               = useState('');
-  const [password, setPassword]         = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [remember, setRemember]         = useState(true);
-  const [status, setStatus]             = useState<Status>('idle');
-  const [fieldErrors, setFieldErrors]   = useState<FieldErrors>({});
-  const [formError, setFormError]       = useState<string | null>(null);
+  const [remember, setRemember] = useState(true);
+  const [status, setStatus] = useState<Status>('idle');
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const [formError, setFormError] = useState<string | null>(null);
 
   function validate(): boolean {
     const next: FieldErrors = {};
@@ -79,7 +79,10 @@ export function LoginForm() {
     } catch (err: unknown) {
       setStatus('error');
       const code = (err as { code?: string }).code ?? '';
-      setFormError(parseFirebaseError(code));
+      const message = err instanceof Error && err.message.includes('Firebase is not configured')
+        ? 'Firebase is not configured yet. Add your project environment values to enable sign-in.'
+        : parseFirebaseError(code);
+      setFormError(message);
     }
   }
 
@@ -93,7 +96,10 @@ export function LoginForm() {
     } catch (err: unknown) {
       setStatus('error');
       const code = (err as { code?: string }).code ?? '';
-      setFormError(parseFirebaseError(code));
+      const message = err instanceof Error && err.message.includes('Firebase is not configured')
+        ? 'Firebase is not configured yet. Add your project environment values to enable sign-in.'
+        : parseFirebaseError(code);
+      setFormError(message);
     }
   }
 
