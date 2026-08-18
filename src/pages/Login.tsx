@@ -9,11 +9,11 @@ export function Login() {
           <span
             aria-hidden="true"
             className="flex h-8 w-8 items-center justify-center rounded-lg bg-ink font-display text-[17px] leading-none text-paper">
-            
-            M
+
+            S
           </span>
           <span className="text-[15px] font-medium tracking-tight text-ink">
-            Marigold
+            Study Planner
           </span>
         </header>
 
@@ -34,19 +34,19 @@ export function Login() {
           <a
             href="#privacy"
             className="underline-offset-2 transition-colors duration-150 ease-out hover:text-ink hover:underline">
-            
+
             Privacy
           </a>
           <a
             href="#terms"
             className="underline-offset-2 transition-colors duration-150 ease-out hover:text-ink hover:underline">
-            
+
             Terms
           </a>
           <a
             href="#help"
             className="underline-offset-2 transition-colors duration-150 ease-out hover:text-ink hover:underline">
-            
+
             Get help
           </a>
         </footer>

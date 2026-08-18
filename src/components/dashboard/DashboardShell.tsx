@@ -1,7 +1,6 @@
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import {
-  BarChart3Icon,
   CalendarRangeIcon,
   FlameIcon,
   ListChecksIcon,
@@ -16,7 +15,6 @@ import { NotificationCenter } from './NotificationCenter';
 const tabs = [
   { to: '/dashboard', label: 'Timetable', icon: CalendarRangeIcon, end: true },
   { to: '/dashboard/quiz', label: 'Quiz', icon: ListChecksIcon, end: false },
-  { to: '/dashboard/analysis', label: 'Analysis', icon: BarChart3Icon, end: false },
   { to: '/dashboard/profile', label: 'Profile', icon: UserCircleIcon, end: false },
 ];
 
@@ -28,10 +26,6 @@ const titles: Record<string, { title: string; subtitle: string; }> = {
   '/dashboard/quiz': {
     title: 'Quiz',
     subtitle: 'Fresh questions drawn against the topics you keep missing.'
-  },
-  '/dashboard/analysis': {
-    title: 'Analysis',
-    subtitle: 'Where you’re strong, where you’re slipping, and exam readiness.'
   },
   '/dashboard/profile': {
     title: 'Profile',
@@ -61,7 +55,7 @@ export function DashboardShell() {
             M
           </span>
           <span className="text-[15px] font-medium tracking-tight text-ink">
-            Marigold
+            StudyPlanner
           </span>
         </div>
 

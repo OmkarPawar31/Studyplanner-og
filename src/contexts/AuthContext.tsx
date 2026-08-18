@@ -41,6 +41,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Subscribe to Firebase auth state changes
   useEffect(() => {
+    if (!auth) {
+      setUser(null);
+      setLoading(false);
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser);
       setLoading(false);
@@ -50,12 +56,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Email + password sign-in
   const signIn = useCallback(async (email: string, password: string) => {
+    if (!auth) {
+      throw new Error('Firebase is not configured in this environment.');
+    }
     await signInWithEmailAndPassword(auth, email, password);
   }, []);
 
   // Email + password registration; sets displayName immediately after creation
   const signUp = useCallback(
     async (email: string, password: string, displayName: string): Promise<User> => {
+      if (!auth) {
+        throw new Error('Firebase is not configured in this environment.');
+      }
       const credential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(credential.user, { displayName });
       // Refresh local state so displayName is immediately available
@@ -67,12 +79,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Google Sign-In via popup
   const signInWithGoogle = useCallback(async (): Promise<User> => {
+    if (!auth || !googleProvider) {
+      throw new Error('Firebase is not configured in this environment.');
+    }
     const result = await signInWithPopup(auth, googleProvider);
     return result.user;
   }, []);
 
   // Sign out
   const logOut = useCallback(async () => {
+    if (!auth) {
+      return;
+    }
     await signOut(auth);
   }, []);
 

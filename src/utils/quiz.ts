@@ -29,10 +29,10 @@ function shuffleOptions(question: QuizQuestion): QuizQuestion {
  * so a "regenerate" never produces the same flat quiz twice.
  */
 export function generateQuiz(
-subjectId: string,
-count: number,
-attempts: QuizAttempt[])
-: QuizQuestion[] {
+  subjectId: string,
+  count: number,
+  attempts: QuizAttempt[])
+  : QuizQuestion[] {
   const pool = questionBank.filter((question) => question.subjectId === subjectId);
   if (pool.length === 0) return [];
   const accuracy = topicAccuracy(attempts, subjectId);
@@ -42,7 +42,7 @@ attempts: QuizAttempt[])
     // Unseen topics sit mid-weight; heavily missed topics get up to ~3× the pull.
     const miss = topicScore ? 1 - topicScore.accuracy : 0.4;
     const difficultyBias =
-    question.difficulty === 'core' ? 1 : question.difficulty === 'applied' ? 0.9 : 0.7;
+      question.difficulty === 'core' ? 1 : question.difficulty === 'applied' ? 0.9 : 0.7;
     return {
       question,
       weight: (0.4 + miss * 2.2) * difficultyBias * (0.75 + Math.random() * 0.5)
@@ -50,8 +50,8 @@ attempts: QuizAttempt[])
   });
 
   return weighted.
-  sort((a, b) => b.weight - a.weight).
-  slice(0, Math.min(count, pool.length)).
-  map((entry) => shuffleOptions(entry.question)).
-  sort(() => Math.random() - 0.5);
+    sort((a, b) => b.weight - a.weight).
+    slice(0, Math.min(count, pool.length)).
+    map((entry) => shuffleOptions(entry.question)).
+    sort(() => Math.random() - 0.5);
 }
